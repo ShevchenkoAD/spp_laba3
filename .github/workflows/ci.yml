@@ -39,7 +39,7 @@ jobs:
         env:
           NODE_ENV: test
 
-  # Задача 2: Проверка сборки и линтинга фронтенда
+
   frontend-checks:
     name: Frontend Lint & Build
     runs-on: ubuntu-latest
@@ -64,3 +64,15 @@ jobs:
         run: |
           cd frontend
           npm run build
+
+  docker-build-check:
+    name: Test Docker Compose Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker Compose images
+        run: |
+          docker compose build

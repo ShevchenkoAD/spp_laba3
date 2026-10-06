@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "Backend REST API for Tutor Platform",
   "main": "src/server.js",
-"scripts": {
-  "start": "node src/server.js",
-  "lint": "eslint .",
-  "test": "jest --runInBand --detectOpenHandles"
-},
+  "scripts": {
+    "start": "node src/server.js",
+    "lint": "eslint .",
+    "test": "jest --runInBand --detectOpenHandles"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
