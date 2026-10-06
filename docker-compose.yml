@@ -15,6 +15,16 @@ services:
       timeout: 5s
       retries: 5
 
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: laba3_mailpit
+    restart: always
+    ports:
+      - "8025:8025" 
+      - "1025:1025"
+    environment:
+      MP_MAX_MESSAGES: 500
+
   backend:
     build:
       context: ./backend
