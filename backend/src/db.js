@@ -1,4 +1,5 @@
 const { Pool } = require('pg');
+const logger = require('./logger');
 
 const pool = new Pool({
   host: process.env.DB_HOST || 'postgres',
@@ -8,7 +9,6 @@ const pool = new Pool({
   database: process.env.DB_NAME || 'tutor_db',
 });
 
-// Инициализация базы данных 
 const initDB = async () => {
   const createTableQuery = `
     CREATE TABLE IF NOT EXISTS tutors (
@@ -25,7 +25,7 @@ const initDB = async () => {
 
   try {
     await pool.query(createTableQuery);
-    console.log('Таблица tutors успешно проверена/создана.');
+    logger.info({ event: 'DB_INIT_SUCCESS' }, 'Таблица tutors успешно проверена/создана');
 
     const countRes = await pool.query('SELECT COUNT(*) FROM tutors');
     if (parseInt(countRes.rows[0].count, 10) === 0) {
@@ -37,10 +37,10 @@ const initDB = async () => {
           ('Дмитрий Морозов', 'Программирование (Python/JS)', 2200, 4, 'Действующий Senior разработчик. Обучение с нуля до первого оффера.');
       `;
       await pool.query(seedQuery);
-      console.log('Тестовые данные успешно добавлены.');
+      logger.info({ event: 'DB_SEED_SUCCESS', count: 3 }, 'Тестовые репетиторы успешно добавлены в базу данных');
     }
   } catch (error) {
-    console.error('Ошибка инициализации БД:', error);
+    logger.error({ event: 'DB_INIT_ERROR', err: error.message, stack: error.stack }, 'Ошибка при инициализации базы данных');
   }
 };
 

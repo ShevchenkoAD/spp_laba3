@@ -8,6 +8,9 @@ build/
 .cache/
 coverage/
 
+logs/
+*.log
+
 
 .env
 .env.local

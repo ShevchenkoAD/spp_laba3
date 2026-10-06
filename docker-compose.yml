@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: tutor_postgres
+    container_name: laba3_postgres
     restart: always
     environment:
       POSTGRES_USER: postgres
@@ -19,7 +19,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: tutor_backend
+    container_name: laba3_backend
     restart: always
     environment:
       PORT: 5000
@@ -32,6 +32,7 @@ services:
       - "5000:5000"
     volumes:
       - backend_uploads:/app/uploads
+      - ./backend/logs:/app/logs
     depends_on:
       postgres:
         condition: service_healthy
@@ -40,7 +41,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: tutor_frontend
+    container_name: laba3_frontend
     restart: always
     ports:
       - "3000:80"
